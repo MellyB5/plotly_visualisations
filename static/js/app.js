@@ -23,7 +23,7 @@ function optionChanged(sample){
     });
     y_val = samples.otu_ids.slice(0, 10).map(d=>`ID ${d}`).reverse();
     console.log(samples.otu_ids.slice(0, 10));
-    bardata = {
+    var bardata = {
         x: samples.sample_values.slice(0, 10).reverse(),
         y: y_val,
         text: samples.otu_labels.slice(0, 10).reverse(),
@@ -32,4 +32,19 @@ function optionChanged(sample){
     }
     Plotly.newPlot("bar", [bardata]);
 
+    text_val = samples.otu_labels
+    var bubbledata = {
+        x: samples.otu_ids,
+        y: samples.sample_values,
+        mode: "markers",
+        marker: {
+        size: samples.sample_values,
+        color: samples.otu_ids,
+        text: samples.otu_labels,
+    }
+    };
+    var bubble_layout = {
+        xaxis: {title: "OTU ID"}
+    };
+    Plotly.newPlot("bubble", [bubbledata], bubble_layout);
 }
